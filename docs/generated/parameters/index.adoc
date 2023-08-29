@@ -1,3 +1,0 @@
-
-=== Launch into an existing Amazon EKS cluster
-include::quickstart-eks-hashicorp-vault.template.adoc[]

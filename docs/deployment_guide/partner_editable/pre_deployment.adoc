@@ -1,3 +1,42 @@
 // Include any predeployment steps here, such as signing up for a Marketplace AMI or making any changes to a partner account. If there are no predeployment steps, leave this file empty.
 
 == Predeployment steps
+
+=== Planning the deployment
+
+==== Specialized knowledge
+
+This deployment guide requires a moderate level of familiarity with AWS services. If you’re new to AWS, see the https://aws.amazon.com/getting-started/[Getting Started Resource Center] and https://aws.amazon.com/training/[AWS Training and Certification]. These sites provide materials for learning how to design, deploy, and operate your infrastructure and applications on the AWS Cloud.
+
+This Partner Solution assumes familiarity with https://aws.amazon.com/eks/[Amazon EKS], https://aws.amazon.com/cloudformation/[AWS CloudFormation], and https://kubernetes.io/[Kubernetes].
+
+==== AWS account
+
+If you don’t already have an AWS account, create one at https://aws.amazon.com by following the on-screen instructions. Part of the sign-up process involves receiving a phone call and entering a PIN using your phone’s keypad.
+
+Your AWS account is automatically signed up for all AWS services. You are charged only for the services you use.
+
+==== Amazon EKS cluster
+
+If you deploy your cluster into an existing Amazon EKS cluster that was not created by the https://aws-quickstart.github.io/quickstart-amazon-eks/[Amazon EKS on the AWS Cloud] Partner Solution, you must configure your cluster to allow this Partner Solution to manage it. For more information, see the https://aws-quickstart.github.io/quickstart-eks-hashicorp-vault/#_deployment_steps[Deployment steps] section.
+
+==== IAM permissions
+
+Before launching the Partner Solution, you must log in to the AWS Management Console with https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html[IAM permissions] for the resources and actions the templates deploy.
+
+The AdministratorAccess managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions.
+
+=== Prepare existing EKS cluster (optional)
+
+NOTE: This step is only required if you launch this Partner Solution into an existing Amazon EKS cluster that was not created using the Amazon EKS on the AWS Cloud deployment. If you want to create a new EKS cluster with your deployment, skip to step 3.
+
+. Sign in to your AWS account, and launch the cluster preparation template.
+. The template launches in the US East (Ohio) Region by default. To change the Region, choose another Region from list in the upper-right corner of the navigation bar.
+. On the Create stack page, keep the default setting for the template URL, and then choose Next.
+. On the Specify stack details page, change the stack name if needed. Enter the name of the Amazon EKS cluster you want to deploy to as well as the subnet IDs and security group ID associated with the cluster. These can be obtained from the EKS cluster console.
+. On the Options page, specify the key-value pairs for resources in your stack, and set advanced options. When you’re done, choose Next.
+. On the Review page, review and confirm your template settings. Under Capabilities, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.
+. Choose Create stack to deploy the stack.
+. Monitor the stack’s status until it is CREATE_COMPLETE.
+. From the Outputs section of the stack, note the KubernetesRoleArn and HelmRoleArn roles.
+. Add the roles to the aws-auth config map in your cluster, specifying system:masters for the groups. This allows the Partner Solution to manage your cluster via AWS CloudFormation. For more information, see Managing users or IAM roles for your cluster.

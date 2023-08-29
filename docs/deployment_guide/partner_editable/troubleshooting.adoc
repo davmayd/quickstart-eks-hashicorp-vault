@@ -1,3 +1,24 @@
 // Add any unique troubleshooting steps here.
 
 For troubleshooting common Partner Solution issues, refer to the https://fwd.aws/rA69w?[AWS Partner Solution General Information Guide^].
+
+=== Best practices for using Vault on AWS
+
+The following best practices are enabled by default for this Quick Start:
+
+* Enabled AWS KMS auto-unseal: This uses AWS KMS to store and encrypt Vault's unseal keys. For more information, see
+https://learn.hashicorp.com/tutorials/vault/autounseal-aws-kms[Auto-unseal using AWS KMS^].
+
+* Enable cluster HA: This helps to ensure that Vault is set up for fault tolerance. For more information, see https://learn.hashicorp.com/tutorials/vault/raft-storage?in=vault/interactive[Vault HA Cluster with Integrated Storage^].
+
+* Enable Raft storage for HA: This sets up the Raft consensus protocol as Vault's storage backend. For more information, see https://learn.hashicorp.com/tutorials/vault/raft-ha-storage?in=vault/interactive[Use Integrated Storage for HA Coordination^].
+
+* Enable Vault audit to Amazon CloudWatch: This lets you troubleshoot audit logs. For more information, see https://learn.hashicorp.com/tutorials/vault/troubleshooting-vault#enabling-audit-devices[Enabling audit devices^].
+
+* Enable SSL at the Vault UI endpoint: This helps to secure the Vault UI endpoint with an SSL certificate. For more information, see https://www.vaultproject.io/docs/configuration/ui[Vault UI^].
+
+=== Other useful information
+//Provide any other information of interest to users, especially focusing on areas where AWS or cloud usage differs
+//from on-premises usage.
+
+* https://www.vaultproject.io/docs/platform/k8s[{partner-product-short-name} Kubernetes integration, role=external, window=_blank]
